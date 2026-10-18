@@ -151,8 +151,11 @@ fn workspace() -> PathBuf {
     root
 }
 
+// Same conversion as the server: hand-built `file://C:\...` is not a valid URI on Windows.
 fn uri(p: &Path) -> String {
-    format!("file://{}", p.display())
+    tower_lsp_server::ls_types::Uri::from_file_path(p)
+        .map(|u| u.as_str().to_string())
+        .unwrap_or_default()
 }
 
 const MAIN: &str = ".class public Lcom/x/Main;\n.super Ljava/lang/Object;\n\n.method public static run()V\n    .locals 1\n    const/4 v0, 0x8\n    invoke-static {v0}, Lcom/x/Lib;->make(I)Lcom/x/Lib;\n    return-void\n.end method\n";
