@@ -123,7 +123,9 @@ fn structure(s: &mut Sink, ctx: &Context) {
             }
         }
         if !found {
-            let first_line_end = text.find('\n').map_or(err.span.end, |i| err.span.start + i);
+            let first_line_end = text.find('\n').map_or(err.span.end, |i| {
+                err.span.start + text[..i].trim_end_matches('\r').len()
+            });
             s.push(
                 "S100",
                 Span::new(err.span.start, first_line_end.max(err.span.start)),
@@ -134,9 +136,10 @@ fn structure(s: &mut Sink, ctx: &Context) {
 
     let Some(class) = &model.class else {
         let start = doc.text.len() - doc.text.trim_start().len();
-        let end = doc.text[start..]
-            .find('\n')
-            .map_or(doc.text.len(), |i| start + i);
+        let rest = &doc.text[start..];
+        let end = rest.find('\n').map_or(doc.text.len(), |i| {
+            start + rest[..i].trim_end_matches('\r').len()
+        });
         s.push("S101", Span::new(start, end), "missing .class directive");
         return;
     };

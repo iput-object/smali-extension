@@ -134,8 +134,16 @@ fn fixtures() {
     files.sort();
     assert!(!files.is_empty(), "no fixtures in {}", dir.display());
     let mut failures = Vec::new();
-    for path in &files {
-        let text = std::fs::read_to_string(path).unwrap_or_default();
+    // Every fixture runs with LF and CRLF endings: Windows checkouts and editors produce CRLF,
+    // and spans must never cover the `\r`.
+    let variants = files.iter().flat_map(|path| {
+        let lf = std::fs::read_to_string(path)
+            .unwrap_or_default()
+            .replace("\r\n", "\n");
+        let crlf = lf.replace('\n', "\r\n");
+        [(path, lf, ""), (path, crlf, " (CRLF)")]
+    });
+    for (path, text, variant) in variants {
         let doc = Document::parse(&text);
         let index = build_index(&[(path.clone(), text.clone())]);
         let expected_class =
@@ -167,7 +175,7 @@ fn fixtures() {
             let missing: Vec<_> = want.iter().filter(|w| !got.contains(w)).collect();
             let extra: Vec<_> = got.iter().filter(|g| !want.contains(g)).collect();
             failures.push(format!(
-                "{name}:\n  missing {missing:?}\n  extra   {extra:?}"
+                "{name}{variant}:\n  missing {missing:?}\n  extra   {extra:?}"
             ));
         }
     }
