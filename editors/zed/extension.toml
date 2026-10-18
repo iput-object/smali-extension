@@ -1,0 +1,17 @@
+id = "smali"
+name = "Smali"
+version = "0.1.0"
+schema_version = 1
+authors = ["iput-object"]
+description = "Smali (Dalvik bytecode assembly) support: highlighting, diagnostics, completion, navigation and quick fixes via smali-lsp."
+repository = "https://github.com/iput-object/smali-extension"
+
+[grammars.smali]
+# Vendored grammar lives in this repo; bump `rev` after changing the grammar.
+repository = "https://github.com/iput-object/smali-extension"
+rev = "ebecfbb6dfff13df4e153a64f4ceb5c02ad191a4"
+path = "grammar/tree-sitter-smali"
+
+[language_servers.smali-lsp]
+name = "smali-lsp"
+languages = ["Smali"]

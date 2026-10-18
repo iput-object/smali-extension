@@ -1,0 +1,49 @@
+{
+  "name": "smali",
+  "displayName": "Smali",
+  "description": "Smali (Dalvik bytecode assembly): highlighting, diagnostics, completion, navigation and quick fixes via smali-lsp.",
+  "version": "0.1.0",
+  "publisher": "iput-object",
+  "private": true,
+  "license": "MIT",
+  "repository": { "type": "git", "url": "https://github.com/iput-object/smali-extension" },
+  "engines": { "vscode": "^1.90.0" },
+  "categories": ["Programming Languages", "Linters"],
+  "main": "./out/extension.js",
+  "activationEvents": [],
+  "contributes": {
+    "languages": [{
+      "id": "smali",
+      "aliases": ["Smali", "smali"],
+      "extensions": [".smali"],
+      "configuration": "./language-configuration.json"
+    }],
+    "grammars": [{
+      "language": "smali",
+      "scopeName": "source.smali",
+      "path": "./syntaxes/smali.tmLanguage.json"
+    }],
+    "configuration": {
+      "title": "Smali",
+      "properties": {
+        "smali.serverPath": { "type": "string", "default": "", "description": "Path to the smali-lsp binary. Empty: use smali-lsp from PATH." },
+        "smali.androidJar": { "type": "string", "default": "", "description": "Path to android.jar. Empty: newest platform in the Android SDK." },
+        "smali.apiLevel": { "type": ["integer", "null"], "default": null, "description": "API level used to pick android.jar from the SDK when androidJar is unset." },
+        "smali.extraRoots": { "type": "array", "items": { "type": "string" }, "default": [], "description": "Directories of reference smali (e.g. decompiled framework)." },
+        "smali.cacheDir": { "type": "string", "default": "", "description": "Index cache directory. Empty: OS cache dir + smali-lsp." },
+        "smali.diagnostics": {
+          "type": "object",
+          "default": {},
+          "additionalProperties": { "type": "string", "enum": ["off", "hint", "info", "warning", "error"] },
+          "description": "Severity override per diagnostic code, e.g. { \"S301\": \"off\" }."
+        }
+      }
+    }
+  },
+  "scripts": {
+    "compile": "tsc -p .",
+    "package": "npm run compile && vsce package"
+  },
+  "dependencies": { "vscode-languageclient": "9.0.1" },
+  "devDependencies": { "@types/node": "20.14.10", "@types/vscode": "1.90.0", "typescript": "5.5.3", "@vscode/vsce": "2.31.1" }
+}

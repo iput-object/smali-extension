@@ -1,0 +1,51 @@
+name: Release
+
+on:
+  push:
+    tags: ["v*"]
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          # Asset names must match editors/zed/src/lib.rs `asset_name`.
+          - { target: x86_64-unknown-linux-musl, os: ubuntu-latest, cross: true }
+          - { target: aarch64-unknown-linux-musl, os: ubuntu-latest, cross: true }
+          - { target: x86_64-apple-darwin, os: macos-13 }
+          - { target: aarch64-apple-darwin, os: macos-14 }
+          - { target: x86_64-pc-windows-msvc, os: windows-latest }
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: dtolnay/rust-toolchain@stable
+        with:
+          targets: ${{ matrix.target }}
+      - name: Install cross
+        if: matrix.cross
+        run: cargo install cross --locked
+      - name: Build
+        shell: bash
+        run: |
+          if [ "${{ matrix.cross }}" = "true" ]; then
+            cross build --release --locked -p smali-lsp --target ${{ matrix.target }}
+          else
+            cargo build --release --locked -p smali-lsp --target ${{ matrix.target }}
+          fi
+      - name: Package
+        shell: bash
+        run: |
+          cd target/${{ matrix.target }}/release
+          name=smali-lsp-${{ matrix.target }}
+          if [ "${{ runner.os }}" = "Windows" ]; then
+            7z a "../../../$name.zip" smali-lsp.exe
+          else
+            tar czf "../../../$name.tar.gz" smali-lsp
+          fi
+      - uses: softprops/action-gh-release@v2
+        with:
+          files: smali-lsp-${{ matrix.target }}.*

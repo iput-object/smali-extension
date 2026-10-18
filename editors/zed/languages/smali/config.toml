@@ -1,0 +1,11 @@
+name = "Smali"
+grammar = "smali"
+path_suffixes = ["smali"]
+line_comments = ["# "]
+tab_size = 4
+brackets = [
+    { start = "{", end = "}", close = true, newline = false },
+    { start = "(", end = ")", close = true, newline = false },
+    { start = "\"", end = "\"", close = true, newline = false, not_in = ["string", "comment"] },
+]
+word_characters = ["$", "-", "/", "<", ">", ";"]

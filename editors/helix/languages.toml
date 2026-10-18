@@ -1,0 +1,14 @@
+# Helix setup for smali-lsp. Merge into ~/.config/helix/languages.toml.
+# Highlighting uses Helix's built-in smali grammar.
+
+[language-server.smali-lsp]
+command = "smali-lsp"
+
+[language-server.smali-lsp.config.smali]
+# androidJar = "/path/to/android.jar"
+# extraRoots = ["/path/to/framework-smali"]
+
+[[language]]
+name = "smali"
+language-servers = ["smali-lsp"]
+roots = ["apktool.yml", ".git"]

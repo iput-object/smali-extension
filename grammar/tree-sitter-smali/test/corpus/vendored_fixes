@@ -1,0 +1,253 @@
+================================================================================
+Param with name, annotations and .end param
+================================================================================
+
+.class LA;
+.super LB;
+.method f(I)V
+    .locals 0
+    .param p1, "x"    # I
+        .annotation runtime LAnn;
+        .end annotation
+    .end param
+    .param p2, "y"
+    .annotation system Ldalvik/annotation/Signature;
+    .end annotation
+    return-void
+.end method
+
+--------------------------------------------------------------------------------
+
+(class_definition
+  (class_directive
+    (class_identifier
+      (identifier)))
+  (super_directive
+    (class_identifier
+      (identifier)))
+  (method_definition
+    (method_signature
+      (method_identifier)
+      (parameters
+        (primitive_type))
+      (primitive_type))
+    (locals_directive
+      (number))
+    (param_directive
+      (parameter)
+      (string
+        (string_fragment)))
+    (comment)
+    (annotation_directive
+      (annotation_visibility)
+      (class_identifier
+        (identifier)))
+    (end_param_directive)
+    (param_directive
+      (parameter)
+      (string
+        (string_fragment)))
+    (annotation_directive
+      (annotation_visibility)
+      (class_identifier
+        (identifier)
+        (identifier)
+        (identifier)))
+    (expression
+      (opcode))))
+
+================================================================================
+Keyword member names
+================================================================================
+
+.class LA;
+.super LB;
+.field private final final:Ljava/lang/Object;
+.field public static annotation:I = 0x1
+.method public static final synchronized(Ljava/lang/Object;)V
+    .locals 0
+    return-void
+.end method
+.method public final volatile(Z)LA;
+    .locals 0
+    return-void
+.end method
+.method public final constructor(I)V
+    .locals 0
+    return-void
+.end method
+.method static bridge synthetic -$$Nest$fgetx(LA;)I
+    .locals 0
+    return-void
+.end method
+
+--------------------------------------------------------------------------------
+
+(class_definition
+  (class_directive
+    (class_identifier
+      (identifier)))
+  (super_directive
+    (class_identifier
+      (identifier)))
+  (field_definition
+    (access_modifiers
+      (access_modifier)
+      (access_modifier))
+    (field_identifier)
+    (field_type
+      (class_identifier
+        (identifier)
+        (identifier)
+        (identifier))))
+  (field_definition
+    (access_modifiers
+      (access_modifier)
+      (access_modifier))
+    (field_identifier)
+    (field_type
+      (primitive_type))
+    (number))
+  (method_definition
+    (access_modifier)
+    (access_modifier)
+    (access_modifier)
+    (method_signature
+      (method_identifier)
+      (parameters
+        (class_identifier
+          (identifier)
+          (identifier)
+          (identifier)))
+      (primitive_type))
+    (locals_directive
+      (number))
+    (expression
+      (opcode)))
+  (method_definition
+    (access_modifier)
+    (access_modifier)
+    (method_signature
+      (method_identifier)
+      (parameters
+        (primitive_type))
+      (class_identifier
+        (identifier)))
+    (locals_directive
+      (number))
+    (expression
+      (opcode)))
+  (method_definition
+    (access_modifier)
+    (access_modifier)
+    (method_signature
+      (method_identifier)
+      (parameters
+        (primitive_type))
+      (primitive_type))
+    (locals_directive
+      (number))
+    (expression
+      (opcode)))
+  (method_definition
+    (access_modifier)
+    (access_modifier)
+    (access_modifier)
+    (method_signature
+      (method_identifier)
+      (parameters
+        (class_identifier
+          (identifier)))
+      (primitive_type))
+    (locals_directive
+      (number))
+    (expression
+      (opcode))))
+
+================================================================================
+Infinityf literals
+================================================================================
+
+.class LA;
+.super LB;
+.field public static final NEG:F = -Infinityf
+.field public static final POS:F = Infinityf
+
+--------------------------------------------------------------------------------
+
+(class_definition
+  (class_directive
+    (class_identifier
+      (identifier)))
+  (super_directive
+    (class_identifier
+      (identifier)))
+  (field_definition
+    (access_modifiers
+      (access_modifier)
+      (access_modifier)
+      (access_modifier))
+    (field_identifier)
+    (field_type
+      (primitive_type))
+    (Infinity))
+  (field_definition
+    (access_modifiers
+      (access_modifier)
+      (access_modifier)
+      (access_modifier))
+    (field_identifier)
+    (field_type
+      (primitive_type))
+    (Infinity)))
+
+================================================================================
+Primitive annotation value
+================================================================================
+
+.class LA;
+.super LB;
+.annotation runtime LAnn;
+    factory = V
+    other = [I
+.end annotation
+
+--------------------------------------------------------------------------------
+
+(class_definition
+  (class_directive
+    (class_identifier
+      (identifier)))
+  (super_directive
+    (class_identifier
+      (identifier)))
+  (annotation_directive
+    (annotation_visibility)
+    (class_identifier
+      (identifier))
+    (annotation_property
+      (annotation_key)
+      (annotation_value
+        (primitive_type)))
+    (annotation_property
+      (annotation_key)
+      (annotation_value
+        (array_type
+          (primitive_type))))))
+
+================================================================================
+Class without super
+================================================================================
+
+.class public Ljava/lang/Object;
+
+--------------------------------------------------------------------------------
+
+(class_definition
+  (class_directive
+    (access_modifiers
+      (access_modifier))
+    (class_identifier
+      (identifier)
+      (identifier)
+      (identifier))))

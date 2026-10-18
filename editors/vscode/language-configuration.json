@@ -1,0 +1,7 @@
+{
+  "comments": { "lineComment": "#" },
+  "brackets": [["{", "}"], ["(", ")"]],
+  "autoClosingPairs": [{ "open": "{", "close": "}" }, { "open": "(", "close": ")" }, { "open": "\"", "close": "\"", "notIn": ["string", "comment"] }],
+  "wordPattern": "[\\w$<>/;:\\-\\[]+",
+  "folding": { "markers": { "start": "^\\s*\\.(method|annotation|packed-switch|sparse-switch|array-data)\\b", "end": "^\\s*\\.end (method|annotation|packed-switch|sparse-switch|array-data)\\b" } }
+}

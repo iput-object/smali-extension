@@ -1,0 +1,18 @@
+[workspace]
+resolver = "2"
+members = ["crates/*"]
+exclude = ["grammar/tree-sitter-smali", "editors/zed"]
+
+[workspace.package]
+edition = "2021"
+license = "MIT"
+
+[workspace.dependencies]
+smali-syntax = { path = "crates/smali-syntax" }
+smali-opcodes = { path = "crates/smali-opcodes" }
+smali-index = { path = "crates/smali-index" }
+smali-analysis = { path = "crates/smali-analysis" }
+tree-sitter = "0.20.10"
+# Vendored copy of upstream tree-sitter-grammars/tree-sitter-smali@fdfa6a1 with fixes;
+# see grammar/tree-sitter-smali/VENDORED.md and CREDITS.md.
+tree-sitter-smali = { path = "grammar/tree-sitter-smali" }

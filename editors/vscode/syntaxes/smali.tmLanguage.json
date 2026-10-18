@@ -1,0 +1,49 @@
+{
+  "name": "Smali",
+  "scopeName": "source.smali",
+  "patterns": [
+    { "include": "#comment" },
+    { "include": "#string" },
+    { "include": "#directive" },
+    { "include": "#label" },
+    { "include": "#member-ref" },
+    { "include": "#type" },
+    { "include": "#register" },
+    { "include": "#number" },
+    { "include": "#opcode" },
+    { "include": "#modifier" }
+  ],
+  "repository": {
+    "comment": { "match": "#.*$", "name": "comment.line.number-sign.smali" },
+    "string": {
+      "patterns": [
+        { "begin": "\"", "end": "\"", "name": "string.quoted.double.smali", "patterns": [{ "match": "\\\\.", "name": "constant.character.escape.smali" }] },
+        { "match": "'(\\\\.|[^'\\\\])'", "name": "string.quoted.single.smali" }
+      ]
+    },
+    "directive": { "match": "^\\s*(\\.end\\s+[a-z-]+|\\.[a-z-]+(\\s+local)?)\\b", "captures": { "1": { "name": "keyword.control.directive.smali" } } },
+    "label": { "match": ":[\\w$]+", "name": "entity.name.label.smali" },
+    "member-ref": {
+      "match": "(->)([^\\s(:,]+)(?=[(:])",
+      "captures": { "1": { "name": "punctuation.accessor.smali" }, "2": { "name": "entity.name.function.member.smali" } }
+    },
+    "type": {
+      "patterns": [
+        { "match": "\\[*L[^;\\s]+;", "name": "entity.name.type.class.smali" },
+        { "match": "(?<=[(\\[):\\s])\\[*[VZBSCIJFD](?=[\\s,)\\[L;VZBSCIJFD]|$)", "name": "storage.type.primitive.smali" }
+      ]
+    },
+    "register": {
+      "patterns": [
+        { "match": "\\bp\\d+\\b", "name": "variable.parameter.smali" },
+        { "match": "\\bv\\d+\\b", "name": "variable.other.register.smali" }
+      ]
+    },
+    "number": { "match": "(?<![\\w$])-?(0x[0-9a-fA-F]+|\\d+(\\.\\d+)?([eE][+-]?\\d+)?)[LlSsTtFfDd]?\\b", "name": "constant.numeric.smali" },
+    "opcode": { "match": "^\\s*([a-z][a-z0-9-]*(/[a-z0-9-]+)?)(?=\\s|$)", "captures": { "1": { "name": "keyword.other.opcode.smali" } } },
+    "modifier": {
+      "match": "\\b(public|private|protected|static|final|synchronized|volatile|bridge|transient|varargs|native|interface|abstract|strictfp|synthetic|annotation|enum|constructor|declared-synchronized|system|build|runtime)\\b",
+      "name": "storage.modifier.smali"
+    }
+  }
+}
