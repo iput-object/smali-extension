@@ -9,7 +9,7 @@ repository = "https://github.com/iput-object/smali-extension"
 [grammars.smali]
 # Vendored grammar lives in this repo; bump `rev` after changing the grammar.
 repository = "https://github.com/iput-object/smali-extension"
-rev = "ebecfbb6dfff13df4e153a64f4ceb5c02ad191a4"
+rev = "f8f40ee876014f26bcb47ea7bbdb5d2583c9aba5"
 path = "grammar/tree-sitter-smali"
 
 [language_servers.smali-lsp]
